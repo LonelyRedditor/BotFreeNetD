@@ -4,6 +4,9 @@ import DuckDuckGo
 from flask import Flask, request
 from pymessenger.bot import Bot
 import os 
+from selenium import webdriver
+
+browser = webdriver.Firefox()
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
@@ -47,8 +50,16 @@ def verify_fb_token(token_sent):
 
 #chooses a random message to send to the user
 def get_message(x):
-    q = DuckDuckGo.search(x)
-    sample_responses = q.display()
+    results_url = "https://duckduckgo.com/html?q=" + str(x)
+    browser.get(results_url)
+    results = browser.find_elements_by_id('links')
+    num_page_items = len(results)
+    for i in range(num_page_items):
+        resp += "\n" + results[i].text
+    nxt_page = browser.find_element_by_class_name('btn--alt')
+    if nxt_page:
+        browser.execute_script('arguments[0].scrollIntoView();', nxt_page)
+        nxt_page.click()
     # return selected item to the user
     return sample_responses
 
