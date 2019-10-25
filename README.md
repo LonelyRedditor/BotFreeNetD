@@ -4,7 +4,7 @@ This is an open-source tool created for the purpose of gaining access to the int
 
 This tool is NOT for getting free data, but it grants you the ability to use the freebasics 20MB allocation for something of your choice.
 
-##Usage
+## Usage
 
 * start up the facebook application and enter free mode.
 
