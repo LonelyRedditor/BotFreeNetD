@@ -50,6 +50,7 @@ def verify_fb_token(token_sent):
 
 #chooses a random message to send to the user
 def get_message(x):
+    resp = ""
     results_url = "https://duckduckgo.com/html?q=" + str(x)
     browser.get(results_url)
     results = browser.find_elements_by_id('links')
@@ -61,7 +62,7 @@ def get_message(x):
         browser.execute_script('arguments[0].scrollIntoView();', nxt_page)
         nxt_page.click()
     # return selected item to the user
-    return sample_responses
+    return resp
 
 #uses PyMessenger to send response to user
 def send_message(recipient_id, response):
