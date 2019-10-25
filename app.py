@@ -61,7 +61,7 @@ def get_message(x):
     results = browser.find_elements_by_class_name('result__a')
     num_page_items = len(results)
     for i in range(num_page_items):
-        resp += results[i].text + "\n" + results[i].get_attribute('href') + "\n" + snip.text[i] + "\n\n"
+        resp += results[i].text + "\n" + results[i].get_attribute('href') + "\n" + snip[i].text + "\n\n"
     nxt_page = browser.find_element_by_class_name('btn--alt')
     if nxt_page:
         browser.execute_script('arguments[0].scrollIntoView();', nxt_page)
