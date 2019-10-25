@@ -1,5 +1,6 @@
 #Python libraries that we need to import for our bot
 import random
+import urllib3
 from flask import Flask, request
 from pymessenger.bot import Bot
 import os 
@@ -27,7 +28,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text'):
-                    response_sent_text = get_message()
+                    response_sent_text = get_message(message['message'].get('text'))
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
@@ -45,10 +46,12 @@ def verify_fb_token(token_sent):
 
 
 #chooses a random message to send to the user
-def get_message():
-    sample_responses = ["You are stunning!", "We're proud of you.", "Keep on being you!", "We're greatful to know you :)"]
+def get_message(x):
+    http = urllib3.PoolManager()
+    req = 'https://duckduckgo.com/?q=' + str(x)
+    sample_responses = http.request('GET',req)
     # return selected item to the user
-    return random.choice(sample_responses)
+    return sample_responses
 
 #uses PyMessenger to send response to user
 def send_message(recipient_id, response):
