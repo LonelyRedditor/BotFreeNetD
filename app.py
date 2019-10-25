@@ -6,8 +6,12 @@ from pymessenger.bot import Bot
 import os 
 from selenium import webdriver
 
-browser = webdriver.Firefox()
-app = Flask(__name__)
+chrome_options = Options()
+chrome_options.binary_location = GOOGLE_CHROME_BIN
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot (ACCESS_TOKEN)
