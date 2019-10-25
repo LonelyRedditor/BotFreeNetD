@@ -1,9 +1,17 @@
 #Python libraries that we need to import for our bot
 import random
+import DuckDuckGo
 from flask import Flask, request
 from pymessenger.bot import Bot
 import os 
-app = Flask(__name__)
+from selenium import webdriver
+
+chrome_options = Options()
+chrome_options.binary_location = GOOGLE_CHROME_BIN
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot (ACCESS_TOKEN)
@@ -27,7 +35,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text'):
-                    response_sent_text = get_message()
+                    response_sent_text = get_message(message['message'].get('text'))
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
@@ -45,10 +53,21 @@ def verify_fb_token(token_sent):
 
 
 #chooses a random message to send to the user
-def get_message():
-    sample_responses = ["You are stunning!", "We're proud of you.", "Keep on being you!", "We're greatful to know you :)"]
+def get_message(x):
+    resp = ""
+    results_url = "https://duckduckgo.com/html?q=" + str(x)
+    browser.get(results_url)
+    snip = browser.find_elements_by_class_name('result__snippet')
+    results = browser.find_elements_by_class_name('result__a')
+    num_page_items = len(results)
+    for i in range(num_page_items):
+        resp += results[i].text + "\n" + results[i].get_attribute('href') + "\n" + snip[i].text + "\n\n"
+    nxt_page = browser.find_element_by_class_name('btn--alt')
+    if nxt_page:
+        browser.execute_script('arguments[0].scrollIntoView();', nxt_page)
+        nxt_page.click()
     # return selected item to the user
-    return random.choice(sample_responses)
+    return resp
 
 #uses PyMessenger to send response to user
 def send_message(recipient_id, response):
