@@ -57,11 +57,11 @@ def get_message(x):
     resp = ""
     results_url = "https://duckduckgo.com/html?q=" + str(x)
     browser.get(results_url)
-    results = browser.find_elements_by_class_name('result__')
+    snip = browser.find_elements_by_class_name('result__snippet')
     results = browser.find_elements_by_class_name('result__a')
     num_page_items = len(results)
     for i in range(num_page_items):
-        resp += results[i].text + "\n" + results[i].get_attribute('href') + "\n\n"
+        resp += results[i].text + "\n" + results[i].get_attribute('href') + "\n" + snipp.text[i] + "\n\n"
     nxt_page = browser.find_element_by_class_name('btn--alt')
     if nxt_page:
         browser.execute_script('arguments[0].scrollIntoView();', nxt_page)
