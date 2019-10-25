@@ -6,7 +6,7 @@ This tool is NOT for getting free data, but it grants you the ability to use the
 
 ## Usage
 
-* start up the facebook application and enter free mode.
+* start up the facebook application and enter free mode or open this [link](https://free.facebook.com)
 
 * send a friend request to [Solomon Nasdaq] and join the freenetD page.
 
