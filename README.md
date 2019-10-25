@@ -14,4 +14,4 @@ This tool is NOT for getting free data, but it grants you the ability to use the
 
 * [Head on to messenger and send a url to the bot.]
 
-If it all goes well, you should receive a raw http response that can be put to use by a custom-made client-side browser.
+* If it all goes well, you should receive a raw http response that can be put to use by a custom-made client-side browser.
