@@ -1,6 +1,6 @@
 #Python libraries that we need to import for our bot
 import random
-import urllib3
+import DuckDuckGo
 from flask import Flask, request
 from pymessenger.bot import Bot
 import os 
@@ -47,9 +47,8 @@ def verify_fb_token(token_sent):
 
 #chooses a random message to send to the user
 def get_message(x):
-    http = urllib3.PoolManager()
-    req = 'https://duckduckgo.com/?q=' + str(x)
-    sample_responses = http.request('GET',req)
+    q = DuckDuckGo.search(x)
+    sample_responses = q.display()
     # return selected item to the user
     return sample_responses
 
