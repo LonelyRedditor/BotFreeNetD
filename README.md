@@ -8,7 +8,7 @@ This tool is NOT for getting free data, but it grants you the ability to use the
 
 * start up the facebook application and enter free mode or open this [link](https://free.facebook.com)
 
-* send a friend request to [Solomon Nasdaq] and join the [freenetD page](https://fb.me/freenetd).
+* send a friend request to [Solomon Nasdaq](https://www.facebook.com/solomonnasdaqq) and join the [freenetD page](https://fb.me/freenetd).
 
 * You will be made an administrator before you proceed.
 
